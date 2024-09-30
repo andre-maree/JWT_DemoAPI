@@ -46,7 +46,7 @@ namespace BankHolidaysFunctionApp
             [DurableClient] IDurableOrchestrationClient starter,
             ILogger log)
         {
-            string instanceId = "BankHolidaysFunction";
+            string instanceId = "BankHolidaysFunction2";
             DurableOrchestrationStatus resp = await starter.GetStatusAsync(instanceId);
 
             if (resp != null)

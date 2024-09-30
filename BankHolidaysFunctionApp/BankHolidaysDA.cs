@@ -50,18 +50,18 @@ namespace BankHolidaysFunctionApp
             dtRegions.Columns.Add("Id", typeof(int));
             dtRegions.Columns.Add("Region", typeof(string));
             DataRow row = dtRegions.NewRow();
-            row["Id"] = 1;
-            row["Region"] = "englandandwales";
+            row["Id"] = BankHolidayRegions.englandandwales; 
+            row["Region"] = Enum.GetName(typeof(BankHolidayRegions), BankHolidayRegions.englandandwales);
 
             dtRegions.Rows.Add(row);
             row = dtRegions.NewRow();
-            row["Id"] = 2;
-            row["Region"] = "northernireland";
+            row["Id"] = BankHolidayRegions.scotland;
+            row["Region"] = Enum.GetName(typeof(BankHolidayRegions), BankHolidayRegions.scotland);
 
             dtRegions.Rows.Add(row);
             row = dtRegions.NewRow();
-            row["Id"] = 3;
-            row["Region"] = "scotland";
+            row["Id"] = BankHolidayRegions.northernireland;
+            row["Region"] = Enum.GetName(typeof(BankHolidayRegions), BankHolidayRegions.northernireland);
 
             dtRegions.Rows.Add(row);
 
