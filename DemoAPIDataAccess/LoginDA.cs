@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 
 namespace DemoAPIDataAccess
@@ -35,7 +36,7 @@ namespace DemoAPIDataAccess
             parameters.Add("@Username", username);
             parameters.Add("@Password", HashString(password));
 
-            string result = await ExecuteStoredProcedureQuerySingleOrDefaultAsync<string>("[dbo].[SP_Get_Login]", parameters);
+            string result = "MyUsername";// await ExecuteStoredProcedureQuerySingleOrDefaultAsync<string>("[dbo].[SP_Get_Login]", parameters);
 
             return !string.IsNullOrEmpty(result) ? CreateToken() : string.Empty;
 
@@ -49,10 +50,15 @@ namespace DemoAPIDataAccess
             SymmetricSecurityKey securityKey = new(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             SigningCredentials credentials = new(securityKey, SecurityAlgorithms.HmacSha256);
 
+            List<Claim> claims = new()
+            {
+                new Claim("Role", "User")
+            };
+
             JwtSecurityToken Sectoken = new(_config["Jwt:Issuer"],
-              _config["Jwt:Issuer"],
-              null,
-              expires: DateTime.Now.AddMinutes(60),
+              _config["Jwt:Audience"],
+              claims,
+              expires: DateTime.Now.AddMinutes(1),
               signingCredentials: credentials);
 
             string token = new JwtSecurityTokenHandler().WriteToken(Sectoken);
