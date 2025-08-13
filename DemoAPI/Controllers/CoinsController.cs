@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DemoAPI.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,User")]
     [Route("api/[controller]")]
     [ApiController]
     public class CoinsController : ControllerBase

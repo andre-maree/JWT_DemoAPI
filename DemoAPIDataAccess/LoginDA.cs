@@ -38,11 +38,11 @@ namespace DemoAPIDataAccess
 
             string result = await ExecuteStoredProcedureQuerySingleOrDefaultAsync<string>("[dbo].[SP_Get_Login]", parameters);
 
-            return !string.IsNullOrEmpty(result) ? CreateToken() : string.Empty;
+            return !string.IsNullOrEmpty(result) ? CreateToken(result) : string.Empty;
 
         }
 
-        private string CreateToken()
+        private string CreateToken(string username)
         {
             //your logic for login process
             //If login usrename and password are correct then proceed to generate token
@@ -52,13 +52,16 @@ namespace DemoAPIDataAccess
 
             List<Claim> claims = new()
             {
-                new Claim("Role", "User")
+                new Claim(ClaimTypes.Name, username),
+                new Claim(ClaimTypes.NameIdentifier, "userIdvalue"),
+                new Claim(ClaimTypes.Role, "User"),// add 2 roles
+                new Claim(ClaimTypes.Role, "Admin")
             };
 
             JwtSecurityToken Sectoken = new(_config["Jwt:Issuer"],
               _config["Jwt:Audience"],
               claims,
-              expires: DateTime.Now.AddMinutes(1),
+              expires: DateTime.Now.AddMinutes(60),
               signingCredentials: credentials);
 
             string token = new JwtSecurityTokenHandler().WriteToken(Sectoken);
