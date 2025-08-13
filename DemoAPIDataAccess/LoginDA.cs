@@ -36,7 +36,7 @@ namespace DemoAPIDataAccess
             parameters.Add("@Username", username);
             parameters.Add("@Password", HashString(password));
 
-            string result = "MyUsername";// await ExecuteStoredProcedureQuerySingleOrDefaultAsync<string>("[dbo].[SP_Get_Login]", parameters);
+            string result = await ExecuteStoredProcedureQuerySingleOrDefaultAsync<string>("[dbo].[SP_Get_Login]", parameters);
 
             return !string.IsNullOrEmpty(result) ? CreateToken() : string.Empty;
 
