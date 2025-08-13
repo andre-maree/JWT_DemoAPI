@@ -1,4 +1,4 @@
-This is a simple .NET solution to show ASP.NET API JWT authentication and how to create a long running background Durable Function (micro-service) service. It also demonstrates how to use an in-memery cache to improve performance. The DemoAPIMemoryLibrary is the service/business layer, but the in-memory management and service/business layer can be split in a real world solution.
+This is a simple .NET solution to show ASP.NET API JWT authentication and how to create a long running background Durable Function (micro-service) service. It also demonstrates how to use an in-memery cache to improve performance. The DemoAPIMemoryLibrary is the service/business- and memory cache layer, but the in-memory management and service/business layer can be split in a real world solution.
 
 DemoAPI
 - This is the .NET Web API project that demonstartes how to create and use JWT for authentication and roles.
